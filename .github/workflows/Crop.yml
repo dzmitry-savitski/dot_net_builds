@@ -17,7 +17,7 @@ jobs:
       uses: EasyDesk/action-dotnet-build@v1.0.0
       with:
 #         build-args: 'Release'
-#         build-configuration: # optional, default is Release
+        build-configuration: "/property:Configuration=Release /property:Platform=x64"
         path: crop/Crop/
     
     
