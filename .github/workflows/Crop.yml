@@ -18,7 +18,7 @@ jobs:
       with:
 #         build-args: 'Release'
 #         build-configuration: # optional, default is Release
-        path: Crop/
+        path: crop/Crop/
     
     
     - name: Create Release
@@ -38,6 +38,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: Farmer\bin\Release\Crop.exe
+        asset_path: crop\Crop\bin\Release\Crop.exe
         asset_name: Crop.exe
         asset_content_type: application/octet-stream
