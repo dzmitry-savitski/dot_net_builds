@@ -16,7 +16,7 @@ jobs:
     - name: .Net Build
       uses: EasyDesk/action-dotnet-build@v1.0.0
       with:
-        build-args: "-o bin/Release -a x64"
+        build-args: "-o bin/Release -property:Platform=x64;OutDir=bin\Debug"
         build-configuration: "Release"
         path: crop/Crop/
     
