@@ -12,13 +12,13 @@ jobs:
     steps:
     - uses: actions/checkout@master
       with:
-        repository: mdsecactivebreach/Crop
+        repository: mdsecactivebreach/Farmer
     - name: .Net Build
       uses: EasyDesk/action-dotnet-build@v1.0.0
       with:
 #         build-args: 'Release'
 #         build-configuration: # optional, default is Release
-        path: Farmer/
+        path: Crop/
     
     
     - name: Create Release
