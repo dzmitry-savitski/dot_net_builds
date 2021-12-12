@@ -10,20 +10,24 @@ jobs:
     runs-on: windows-latest
     env:
       DISABLEOUTOFPROCTASKHOST: 1
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
 
     steps:
     - uses: actions/checkout@master
       with:
         repository: mdsecactivebreach/Farmer
+
     - name: Setup MSBuild.exe
       uses: warrenbuckley/Setup-MSBuild@v1
-      env:
-          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+      
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1.0.2
+
+    - name: Restore NuGet Packages
+      run: nuget restore Inveigh.sln
           
     - name: MSBuild
       run:  msbuild crop/Crop/Crop.csproj /p:Configuration=Release
-      env:
-          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
     
     - name: Create Release
       id: create_release
@@ -42,6 +46,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: crop\Crop\bin\Debug\Crop.exe
+        asset_path: crop\Crop\bin\Release\Crop.exe
         asset_name: Crop.exe
         asset_content_type: application/octet-stream
