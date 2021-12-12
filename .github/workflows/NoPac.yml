@@ -1,0 +1,51 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Crop
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    env:
+      DISABLEOUTOFPROCTASKHOST: 1
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+
+    steps:
+    - uses: actions/checkout@master
+      with:
+        repository: cube0x0/noPac
+
+    - name: Setup MSBuild.exe
+      uses: warrenbuckley/Setup-MSBuild@v1
+      
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1.0.2
+
+    - name: Restore NuGet Packages
+      run: nuget restore noPac/noPac.csproj
+          
+    - name: MSBuild
+      run:  msbuild noPac/noPac.csproj /p:Configuration=Release
+    
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.run_number }}
+        release_name: release
+        draft: false
+        prerelease: false
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: noPac\bin\Release\noPac.exe
+        asset_name: noPac.exe
+        asset_content_type: application/octet-stream
