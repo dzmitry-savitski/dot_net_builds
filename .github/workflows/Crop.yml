@@ -21,7 +21,7 @@ jobs:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
           
     - name: MSBuild
-      run:  msbuild crop/Crop/Crop.csproj
+      run:  msbuild crop/Crop/Crop.csproj /p:Configuration=Release
       env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
     
@@ -42,6 +42,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: crop\Crop\bin\Release\Crop.exe
+        asset_path: crop\Crop\bin\Debug\Crop.exe
         asset_name: Crop.exe
         asset_content_type: application/octet-stream
