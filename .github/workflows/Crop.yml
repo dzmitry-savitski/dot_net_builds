@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: windows-latest
     env:
-      DisableOutOfProcTaskHost: true
+      DISABLEOUTOFPROCTASKHOST: 1
 
     steps:
     - uses: actions/checkout@master
