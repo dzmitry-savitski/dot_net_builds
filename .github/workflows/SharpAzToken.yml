@@ -26,7 +26,7 @@ jobs:
       with:
 #         build-args: 'Release'
 #         build-configuration: # optional, default is Release
-        path: Farmer/
+        path: SharpAzToken/
     
     
     - name: Create Release
